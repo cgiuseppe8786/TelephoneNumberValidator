@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!--
+  Documento HTML5 standard. L'uso del doctype abilita lo "standards mode" nei browser.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!--
+      Viewport responsivo per layout coerente su dispositivi mobili:
+      - width=device-width mappa i pixel CSS alla larghezza del device
+      - initial-scale=1 evita zoom iniziale forzato
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>US Telephone Number Validator</title>
+
+    <!--
+      CSS separato: migliora caching, manutenzione e riduce FOUC.
+      Caricato prima degli script per evitare dipendenze circolari.
+    -->
+    <link rel="stylesheet" href="styles.css" />
+
+    <!--
+      Defer: esegue lo script dopo il parsing dell'HTML senza bloccare il main thread.
+    -->
+    <script src="script.js" defer></script>
+  </head>
+
+  <body>
+    <!--
+      Toggle tema:
+      - role="button" e tabindex="0" lo rendono accessibile via tastiera (A11Y).
+      - aria-label / title forniscono etichette per screen reader e tooltip.
+    -->
+    <span
+      id="theme-toggle"
+      class="theme-icon"
+      role="button"
+      tabindex="0"
+      aria-label="Toggle theme"
+      title="Toggle theme"
+    >🌙</span>
+
+    <!--
+      Contenitore principale semantico (<main>).
+      La centratura e lo spacing sono gestiti via CSS (.container).
+    -->
+    <main class="container">
+      <header class="header">
+        <!--
+          Titolo principale (SEO + A11Y). La resa estetica (gradient text) è in CSS.
+        -->
+        <h1 class="title">US Telephone Number Validator</h1>
+        <!--
+          Sottotitolo: esplicita che la validazione segue i formati US richiesti dai test.
+        -->
+        <p class="subtitle">
+          Validate US phone numbers 
+        </p>
+      </header>
+
+      <!--
+        Sezione operativa: input, azioni, risultati.
+        Gli ID sono richiesti dai test e dallo script.
+      -->
+      <section class="card" aria-labelledby="form-title">
+        <div class="row">
+          <!--
+            Input:
+            - type="text" perché il formato può includere separatori/parentesi.
+            - placeholder descrittivo; label accessibile tramite aria-label.
+          -->
+          <input
+            id="user-input"
+            type="text"
+            class="input"
+            placeholder="Phone number"
+            aria-label="Phone number to validate"
+          />
+
+          <!--
+            Pulsanti azione (no submit implicito):
+            - type="button" per evitare submit su invio.
+            - classi per style variants.
+          -->
+          <button id="check-btn" type="button" class="btn primary">Check</button>
+          <button id="clear-btn" type="button" class="btn ghost">Clear</button>
+        </div>
+
+        <!--
+          Area risultati live:
+          - aria-live="polite" annuncia cambiamenti senza interrompere l'utente.
+          - popolata dinamicamente dallo script con messaggi dei test.
+        -->
+        <div id="results-div" class="result" aria-live="polite"></div>
+      </section>
+
+      <!--
+        Banner informativo:
+        - Riassume le regole US verificate dai test:
+          * Area code obbligatorio
+          * Se presente, il country code deve essere 1
+      -->
+      <aside class="banner" role="note" aria-live="polite">
+        <p>
+          <strong>US rules:</strong> area code is required; if a country code is present, it must be <em>1</em>.
+        </p>
+      </aside>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,241 @@
+/* =========================================================
+   THEME TOKENS (teal/rose) + DARK OVERRIDES
+   - Design tokens centralizzati per garantire consistenza visiva.
+   - L’uso di color-mix modernizza la gestione delle trasparenze/mescolanze.
+   ========================================================= */
+:root {
+  --bg: #f8fafb;
+  --text: #0f172a;
+  --muted: #5b647d;
+
+  --card: rgba(255, 255, 255, 0.9);
+  --border: #e6e8ef;
+  --shadow: 0 14px 36px rgba(16, 24, 40, 0.12);
+  --glass-blur: saturate(170%) blur(8px);
+
+  --brand: #0ea5a4;      
+  --brand-2: #fb7185;    
+  --ring: #7dd3fc;       
+
+  --btn-grad: linear-gradient(135deg, #22d3ee, #fb7185);
+  --btn-grad-hover: linear-gradient(135deg, #06b6d4, #f43f5e);
+
+  /* Fondo input leggermente tinto per dare affordance di editabilità */
+  --field-bg: color-mix(in srgb, #22d3ee 6%, transparent);
+}
+
+/* Modalità scura: override token per contrasto e ombreggiature coerenti */
+body[data-theme="dark"] {
+  --bg: #0b1020;
+  --text: #e6eaf6;
+  --muted: #aab0d3;
+
+  --card: rgba(18, 22, 50, 0.78);
+  --border: #22264a;
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+
+  --brand: #2dd4bf;
+  --brand-2: #fb7185;
+  --ring: #38bdf8;
+
+  --btn-grad: linear-gradient(135deg, #22d3ee, #fb7185);
+  --btn-grad-hover: linear-gradient(135deg, #06b6d4, #f43f5e);
+
+  --field-bg: color-mix(in srgb, #0ea5a4 9%, transparent);
+}
+
+/* =========================================================
+   BASE / RESET
+   - Box sizing border-box evita calcoli di layout imprevisti.
+   - Altezza 100% su html/body per facilitare centratura verticale.
+   ========================================================= */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Inter, Roboto, Arial, sans-serif;
+  color: var(--text);
+  /* Background composito: gradient radiali per profondità, fallback su tinta base. */
+  background:
+    radial-gradient(1100px 520px at -10% -20%, rgba(34, 211, 238, 0.12), transparent 60%),
+    radial-gradient(900px 520px at 120% 0%, rgba(251, 113, 133, 0.10), transparent 60%),
+    var(--bg);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* =========================================================
+   THEME TOGGLE
+   - Posizionamento fisso in alto a destra.
+   - Transizioni sottili per feedback di interazione senza distrazioni.
+   ========================================================= */
+.theme-icon {
+  position: fixed;
+  top: 14px;
+  right: 18px;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  transition: transform 0.1s ease, opacity 0.2s ease;
+  opacity: 0.8;
+}
+.theme-icon:hover { opacity: 1; transform: scale(1.08); }
+.theme-icon:focus { outline: none; }
+
+/* =========================================================
+   LAYOUT CENTRATO
+   - Flex column per impilare header/card/banner.
+   - gap per spaziatura consistente tra sezioni.
+   ========================================================= */
+.container {
+  min-height: 100dvh; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem 1rem;
+}
+
+.header { text-align: center; margin: 0; }
+
+.title {
+  margin: 0 0 0.25rem 0;
+  font-size: clamp(1.7rem, 3.4vw, 2.2rem); 
+  letter-spacing: 0.2px;
+  /* Effetto testo a gradiente: restituisce una gerarchia visiva elegante */
+  background: linear-gradient(90deg, var(--brand), var(--brand-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+/* =========================================================
+   CARD
+   - Lieve glassmorphism (backdrop-filter) con ombra per elevazione.
+   - width responsiva con max 720px per leggibilità.
+   ========================================================= */
+.card {
+  width: min(720px, 92vw);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  backdrop-filter: var(--glass-blur);
+  padding: 1rem 1.25rem;
+}
+
+/* =========================================================
+   INPUT + BUTTONS (responsive)
+   - Grid a 1 colonna su mobile, 3 colonne su desktop.
+   - gap coerente con spacing scale.
+   ========================================================= */
+.row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+}
+
+@media (min-width: 720px) {
+  .row {
+    grid-template-columns: 1fr auto auto;  
+    align-items: stretch;
+  }
+}
+
+/* Input */
+.input {
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--field-bg);
+  color: var(--text);
+  font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.input::placeholder { color: color-mix(in srgb, var(--muted) 75%, transparent); }
+.input:focus {
+  outline: none;
+  border-color: var(--ring);
+  /* Focus ring accessibile e non invasivo */
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--ring) 28%, transparent);
+  background: color-mix(in srgb, var(--card) 55%, transparent);
+}
+
+/* Bottoni */
+.btn {
+  padding: 0.9rem 1.1rem;
+  border: 0;
+  border-radius: 12px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: transform 0.06s ease, filter 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+}
+
+.btn.primary {
+  color: #07161a;
+  background: var(--btn-grad);
+  box-shadow: 0 8px 22px rgba(2, 132, 199, 0.25);
+}
+.btn.primary:hover { filter: brightness(1.06); background: var(--btn-grad-hover); }
+.btn.primary:active { transform: translateY(1px); }
+
+.btn.ghost {
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border);
+}
+.btn.ghost:hover { filter: brightness(1.06); }
+.btn.ghost:active { transform: translateY(1px); }
+
+.btn:focus { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+/* Mobile: bottoni a larghezza piena per tap target adeguati */
+@media (max-width: 719.98px) {
+  .btn { width: 100%; }
+}
+
+/* =========================================================
+   RISULTATO
+   - Transizione colore per feedback morbido.
+   - classi .ok / .err set by JS per semantica visiva immediata.
+   ========================================================= */
+.result {
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  min-height: 1.6em; 
+  text-align: center;
+  transition: color 0.25s ease;
+}
+.result.ok  { color: #16a34a; font-weight: 700; }
+.result.err { color: #dc2626; font-weight: 700; }
+
+/* =========================================================
+   BANNER
+   - Evidenziazione delle regole supportate con tono informativo.
+   ========================================================= */
+.banner {
+  width: min(720px, 92vw);
+  background: color-mix(in srgb, var(--brand) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--brand) 28%, transparent);
+  border-radius: 14px;
+  padding: 0.9rem 1.1rem;
+  text-align: center;
+  box-shadow: var(--shadow);
+  backdrop-filter: var(--glass-blur);
+  color: var(--text);
+  font-size: 0.95rem;
+}
+.banner em { font-style: normal; font-weight: 700; color: var(--brand-2); }
