@@ -50,13 +50,13 @@ L’interfaccia è stata sviluppata in **HTML**, **CSS** e **JavaScript puro**, 
 
 ### 🚀 Demo
 
-👉 **Live Preview:** [https://cgiuseppe8786.github.io/TelephoneValidator/](https://cgiuseppe8786.github.io/TelephoneValidator/)
+👉 **Live Preview:** [https://cgiuseppe8786.github.io/TelephoneValidator/](https://cgiuseppe8786.github.io/TelephoneNumberValidator/)
 
 ---
 
 ### 💻 Codice sorgente
 
-📂 **Repository:** [https://github.com/cgiuseppe8786/TelephoneValidator](https://github.com/cgiuseppe8786/TelephoneValidator)
+📂 **Repository:** [https://github.com/cgiuseppe8786/TelephoneValidator](https://github.com/cgiuseppe8786/TelephoneNumberValidator)
 
 ---
 
